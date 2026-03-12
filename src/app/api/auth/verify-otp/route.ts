@@ -73,7 +73,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // OTP is valid
     await prisma.otpAttempt.update({
       where: { id: otpId },
       data: { verified: true },

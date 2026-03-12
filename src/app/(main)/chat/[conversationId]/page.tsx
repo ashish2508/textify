@@ -63,7 +63,6 @@ export default function ChatPage() {
         return data.translatedText;
       }
     } catch {
-      // Fallback to original
     }
     return msg.originalText;
   }, []);
@@ -71,7 +70,6 @@ export default function ChatPage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        // Fetch conversation details
         const convRes = await fetch("/api/conversations");
         if (convRes.ok) {
           const conversations = await convRes.json();
@@ -82,7 +80,6 @@ export default function ChatPage() {
             );
             if (other) setOtherUser(other.user);
 
-            // Get current user's preferred language
             const me = thisConv.participants.find(
               (p: { user: { id: string } }) => p.user.id === session?.user?.id
             );
@@ -90,12 +87,10 @@ export default function ChatPage() {
           }
         }
 
-        // Fetch messages
         const msgRes = await fetch(`/api/messages?conversationId=${conversationId}`);
         if (msgRes.ok) {
           const msgs: Message[] = await msgRes.json();
 
-          // Process translations for received messages
           const processed = await Promise.all(
             msgs.map(async (msg) => {
               if (msg.senderId === session?.user?.id) return msg;
@@ -185,7 +180,6 @@ export default function ChatPage() {
 
   return (
     <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full">
-      {/* Chat Header */}
       <div className="neo-border border-t-0 border-l-0 border-r-0 bg-white px-6 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <button
@@ -204,7 +198,6 @@ export default function ChatPage() {
         </span>
       </div>
 
-      {/* Messages */}
       <div className="flex-1 overflow-y-auto p-6 space-y-4">
         {messages.length === 0 && (
           <div className="text-center py-12">
@@ -222,8 +215,8 @@ export default function ChatPage() {
             >
               <div
                 className={`neo-border max-w-[70%] p-3 ${isOwn
-                    ? "bg-primary text-white"
-                    : "bg-white"
+                  ? "bg-primary text-white"
+                  : "bg-white"
                   }`}
                 style={{
                   boxShadow: isOwn
@@ -260,7 +253,6 @@ export default function ChatPage() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Message Input */}
       <div className="neo-border border-b-0 border-l-0 border-r-0 bg-white p-4">
         <div className="flex gap-3 items-end">
           <div className="w-36">

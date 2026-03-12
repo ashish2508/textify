@@ -60,7 +60,6 @@ function OtpForm() {
     setLoading(true);
 
     try {
-      // Sign in via NextAuth — it handles OTP validation internally
       const result = await signIn("otp-verify", {
         userId,
         otpId,

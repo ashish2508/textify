@@ -19,7 +19,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Check if translation already cached
     const existingTranslation = await prisma.messageTranslation.findUnique({
       where: {
         messageId_userId: {
@@ -35,7 +34,6 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Fetch the original message
     const message = await prisma.message.findUnique({
       where: { id: messageId },
     });
@@ -47,14 +45,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Translate
     const translatedText = await translateText(
       message.originalText,
       targetLanguage,
       message.messageLanguage
     );
 
-    // Cache translation
     const translation = await prisma.messageTranslation.create({
       data: {
         messageId,

@@ -25,7 +25,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Check account lock
     if (user.lockedUntil && user.lockedUntil > new Date()) {
       const minutesLeft = Math.ceil(
         (user.lockedUntil.getTime() - Date.now()) / 60000
@@ -44,7 +43,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Clear any lock if it has expired
     if (user.lockedUntil) {
       await prisma.user.update({
         where: { id: user.id },
@@ -52,17 +50,15 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Generate OTP
     const otp = generateOtp();
     const otpRecord = await prisma.otpAttempt.create({
       data: {
         userId: user.id,
         otp,
-        expiresAt: new Date(Date.now() + 5 * 60 * 1000), // 5 minutes
+        expiresAt: new Date(Date.now() + 5 * 60 * 1000),
       },
     });
 
-    // Send OTP email
     await sendOtpEmail(user.email, otp);
 
     return NextResponse.json({

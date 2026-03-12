@@ -3,7 +3,6 @@ export async function translateText(
   targetLanguage: string,
   sourceLanguage?: string
 ): Promise<string> {
-  // Use free Google Translate web endpoint (no API key needed)
   const params = new URLSearchParams({
     client: "gtx",
     sl: sourceLanguage || "auto",
@@ -21,7 +20,6 @@ export async function translateText(
   }
 
   const data = await res.json();
-  // Response format: [[["translated text","original text",...],...],...]
   const translated = data[0]
     ?.map((segment: [string]) => segment[0])
     .join("");

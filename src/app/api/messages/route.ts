@@ -3,7 +3,6 @@ import { prisma } from "@/lib/prisma";
 import { pusherServer } from "@/lib/pusher";
 import { NextRequest, NextResponse } from "next/server";
 
-// GET messages for a conversation
 export async function GET(req: NextRequest) {
   try {
     const session = await auth();
@@ -21,7 +20,6 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    // Verify user is a participant
     const participant = await prisma.conversationParticipant.findUnique({
       where: {
         conversationId_userId: {
@@ -58,7 +56,6 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// POST - send a new message
 export async function POST(req: NextRequest) {
   try {
     const session = await auth();
@@ -75,7 +72,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Verify user is a participant
     const participant = await prisma.conversationParticipant.findUnique({
       where: {
         conversationId_userId: {
@@ -103,7 +99,6 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Emit Pusher event
     await pusherServer.trigger(`conversation-${conversationId}`, "new-message", {
       id: message.id,
       senderId: message.senderId,

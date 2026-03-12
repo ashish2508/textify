@@ -2,7 +2,6 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-// GET all conversations for the logged-in user
 export async function GET() {
   try {
     const session = await auth();
@@ -46,7 +45,6 @@ export async function GET() {
   }
 }
 
-// POST - create a new conversation
 export async function POST(req: NextRequest) {
   try {
     const session = await auth();
@@ -81,7 +79,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Check if conversation already exists between these two users
     const existingConversation = await prisma.conversation.findFirst({
       where: {
         AND: [

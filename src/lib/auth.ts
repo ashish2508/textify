@@ -27,7 +27,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const isValid = await bcrypt.compare(password, user.password);
         if (!isValid) return null;
 
-        // Check if account is locked
         if (user.lockedUntil && user.lockedUntil > new Date()) {
           throw new Error("ACCOUNT_LOCKED");
         }
@@ -63,10 +62,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (otpRecord.expiresAt < new Date()) return null;
 
         if (otpRecord.attempts >= 3) {
-          // Lock account - no new sessions
           await prisma.user.update({
             where: { id: userId },
-            data: { lockedUntil: new Date(Date.now() + 30 * 60 * 1000) }, // 30 min lock
+            data: { lockedUntil: new Date(Date.now() + 30 * 60 * 1000) },
           });
           throw new Error("MAX_ATTEMPTS_EXCEEDED");
         }
@@ -88,7 +86,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           throw new Error(`INVALID_OTP:${remaining}`);
         }
 
-        // OTP is valid
         await prisma.otpAttempt.update({
           where: { id: otpId },
           data: { verified: true },
