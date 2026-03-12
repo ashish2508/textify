@@ -98,10 +98,10 @@ function OtpForm() {
         <div className="text-center py-4">
           <div className="text-6xl mb-4">🔒</div>
           <h2 className="text-2xl font-black uppercase mb-4">Account Locked</h2>
-          <p className="font-medium mb-6">
+          <p className="font-bold mb-6">
             Too many failed attempts. Your account has been temporarily locked for 30 minutes.
           </p>
-          <Button onClick={() => router.push("/login")} variant="outline">
+          <Button onClick={() => router.push("/login")} variant="secondary">
             Back to Login
           </Button>
         </div>
@@ -111,15 +111,16 @@ function OtpForm() {
 
   return (
     <Card>
-      <h2 className="text-2xl font-black uppercase mb-2 border-b-3 border-border pb-3">
+      <h2 className="text-2xl font-black uppercase mb-2 pb-4 border-b-4 border-black">
         Verify OTP
       </h2>
-      <p className="text-sm font-medium mb-6 mt-3">
-        Enter the 6-digit code sent to your email. You have <span className="font-black bg-primary/20 px-1">3 attempts</span>.
+      <p className="text-sm font-bold mb-6 mt-4">
+        Enter the 6-digit code sent to your email. You have{" "}
+        <span className="font-black px-2 py-1 bg-red text-white border-2 border-black">3 attempts</span>.
       </p>
 
       {error && (
-        <div className="bg-primary/10 neo-border p-3 mb-4 font-bold text-sm text-primary">
+        <div className="p-3 mb-4 font-black text-sm border-4 border-black bg-red text-white">
           {error}
         </div>
       )}
@@ -136,7 +137,8 @@ function OtpForm() {
               value={digit}
               onChange={(e) => handleChange(i, e.target.value)}
               onKeyDown={(e) => handleKeyDown(i, e)}
-              className="neo-input w-12 h-14 text-center text-2xl font-black"
+              className="w-12 h-14 text-center text-2xl font-black border-4 border-black bg-white"
+              style={{ boxShadow: "4px 4px 0px #000" }}
               autoFocus={i === 0}
             />
           ))}
@@ -153,7 +155,7 @@ function OtpForm() {
 
       <button
         onClick={() => router.push("/login")}
-        className="w-full mt-4 text-center font-bold text-sm hover:underline"
+        className="w-full mt-4 text-center font-black text-sm hover:bg-yellow px-3 py-2 border-2 border-black uppercase transition-colors"
       >
         ← Back to Login
       </button>

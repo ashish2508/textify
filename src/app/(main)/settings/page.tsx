@@ -46,22 +46,26 @@ export default function SettingsPage() {
 
   return (
     <div className="w-full max-w-lg mx-auto p-6">
-      <h1 className="text-3xl font-black uppercase mb-6">Settings</h1>
+      <h1 className="text-4xl font-black uppercase mb-8">Settings</h1>
 
       <Card>
-        <h2 className="text-xl font-black uppercase mb-4 border-b-3 border-border pb-3">
+        <h2 className="text-xl font-black uppercase mb-4 pb-4 border-b-4 border-black">
           Profile
         </h2>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
           <div>
-            <p className="text-sm font-bold uppercase tracking-wide mb-1">Name</p>
-            <p className="neo-input px-4 py-3 bg-bg">{session?.user?.name}</p>
+            <p className="text-sm font-black uppercase tracking-wide mb-2">Name</p>
+            <p className="px-4 py-3 border-4 border-black font-bold bg-teal">
+              {session?.user?.name}
+            </p>
           </div>
 
           <div>
-            <p className="text-sm font-bold uppercase tracking-wide mb-1">Email</p>
-            <p className="neo-input px-4 py-3 bg-bg">{session?.user?.email}</p>
+            <p className="text-sm font-black uppercase tracking-wide mb-2">Email</p>
+            <p className="px-4 py-3 border-4 border-black font-bold bg-yellow">
+              {session?.user?.email}
+            </p>
           </div>
 
           <Select
@@ -75,13 +79,13 @@ export default function SettingsPage() {
             }}
           />
 
-          <div className="flex items-center gap-3 mt-4">
+          <div className="flex items-center gap-4 mt-6">
             <Button onClick={handleSave} disabled={saving}>
               {saving ? "Saving..." : "Save Changes"}
             </Button>
             {saved && (
-              <span className="font-bold text-sm bg-secondary/20 px-2 py-1 neo-border">
-                ✓ Saved!
+              <span className="font-black text-sm px-4 py-2 border-4 border-black bg-lime">
+                ✓ SAVED!
               </span>
             )}
           </div>

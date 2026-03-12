@@ -1,29 +1,31 @@
 import nodemailer from "nodemailer";
 
-function createMailTransporter() {
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
-    secure: false,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
-}
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT) || 587,
+  secure: false,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
 
 export async function sendOtpEmail(email: string, otp: string) {
   if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    console.log(`[DEV] OTP for ${email}: ${otp}`);
-    return;
+    if (process.env.NODE_ENV !== "production") {
+      console.log(`[DEV] OTP for ${email}: ${otp}`);
+      return;
+    }
+    console.error("SMTP configuration missing! Check SMTP_HOST, SMTP_USER, SMTP_PASS");
+    throw new Error("Email service not configured");
   }
 
-  const transporter = createMailTransporter();
-  await transporter.sendMail({
-    from: `"Textify" <${process.env.SMTP_USER}>`,
-    to: email,
-    subject: "Your Textify Login OTP",
-    html: `
+  try {
+    await transporter.sendMail({
+      from: `"Textify" <${process.env.SMTP_USER}>`,
+      to: email,
+      subject: "Your Textify Login OTP",
+      html: `
       <div style="font-family: 'Courier New', monospace; padding: 0; background: #e8f4f0; max-width: 460px; margin: 0 auto;">
         <div style="background: #e63946; border: 4px solid #000; padding: 18px 24px; box-shadow: 6px 6px 0px #000;">
           <h1 style="margin: 0; font-size: 28px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #000;">
@@ -60,7 +62,12 @@ export async function sendOtpEmail(email: string, otp: string) {
         </div>
       </div>
     `,
-  });
+    });
+    console.log(`OTP email sent to ${email}`);
+  } catch (error) {
+    console.error("Failed to send OTP email:", error);
+    throw error;
+  }
 }
 
 export function generateOtp(): string {

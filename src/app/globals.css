@@ -1,141 +1,52 @@
 @import "tailwindcss";
 
-:root {
-  --bg: #e8f4f0;
-  --fg: #000000;
-  --primary: #e63946;
-  --secondary: #2dc653;
-  --accent: #3a86ff;
-  --mint: #b8f2e6;
-  --lavender: #c3b1e1;
-  --border: #000000;
-  --white: #ffffff;
-  --card-bg: #ffffff;
-  --input-bg: #ffffff;
-  --shadow: 5px 5px 0px #000000;
-  --shadow-sm: 3px 3px 0px #000000;
-  --shadow-lg: 8px 8px 0px #000000;
-  --shadow-xl: 12px 12px 0px #000000;
-  --color-bg: var(--bg);
-  --color-fg: var(--fg);
-  --color-primary: var(--primary);
-  --color-secondary: var(--secondary);
-  --color-accent: var(--accent);
-  --color-mint: var(--mint);
-  --color-lavender: var(--lavender);
-  --color-border: var(--border);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* NEO-BRUTALISM THEME - bold, bright, no dark mode */
+@theme {
+  --color-cream: #FFFBF5;
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-red: #FF6B6B;
+  --color-lime: #C7F464;
+  --color-teal: #4ECDC4;
+  --color-yellow: #FFE66D;
+  --color-purple: #A388EE;
+  --color-pink: #FF8ED4;
+  --color-orange: #FFA447;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #1a1a1a;
-    --fg: #ffffff;
-    --border: #ffffff;
-    --card-bg: #2a2a2a;
-    --input-bg: #3a3a3a;
-    --shadow: 5px 5px 0px #ffffff;
-    --shadow-sm: 3px 3px 0px #ffffff;
-    --shadow-lg: 8px 8px 0px #ffffff;
-    --shadow-xl: 12px 12px 0px #ffffff;
-  }
+:root {
+  --bg: #FFFBF5;
+  --text: #000000;
+  --border: #000000;
+  --secondary: #C7F464;
+  --accent: #A388EE;
+  --shadow: 4px 4px 0px #000000;
+  --shadow-sm: 2px 2px 0px #000000;
+  --shadow-lg: 6px 6px 0px #000000;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 ::selection {
   background: var(--secondary);
-  color: #fff;
+  color: #000;
 }
 
-.neo-border {
-  border: 3px solid var(--border);
+/* Utility */
+.border-3 {
+  border-width: 3px;
 }
 
-.neo-shadow {
-  box-shadow: var(--shadow);
-}
-
-.neo-shadow-sm {
-  box-shadow: var(--shadow-sm);
-}
-
-.neo-shadow-lg {
-  box-shadow: var(--shadow-lg);
-}
-
-.neo-btn {
-  border: 3px solid var(--border);
-  box-shadow: var(--shadow);
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
-  cursor: pointer;
-  position: relative;
-}
-
-.neo-btn:hover {
-  transform: translate(3px, 3px);
-  box-shadow: 2px 2px 0px var(--border);
-}
-
-.neo-btn:active {
-  transform: translate(5px, 5px);
-  box-shadow: none;
-}
-
-.neo-input {
-  border: 3px solid var(--border);
-  box-shadow: var(--shadow-sm);
-  background: var(--input-bg);
-  color: var(--fg);
-  font-weight: 600;
-  outline: none;
-  transition: box-shadow 0.15s ease, transform 0.15s ease, background-color 0.2s ease, color 0.2s ease;
-}
-
-.neo-input:focus {
-  box-shadow: var(--shadow);
-  transform: translate(-1px, -1px);
-}
-
-.neo-card {
-  border: 3px solid var(--border);
-  box-shadow: var(--shadow-lg);
-  background: var(--card-bg);
-  color: var(--fg);
-  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.neo-badge {
-  border: 3px solid var(--border);
-  box-shadow: var(--shadow-sm);
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: 0.75rem;
-  padding: 0.25rem 0.75rem;
-  display: inline-block;
-}
-
-.neo-tag {
-  border: 2px solid var(--border);
-  font-weight: 700;
-  font-size: 0.7rem;
-  padding: 0.15rem 0.5rem;
-  display: inline-block;
-}
-
-.neo-divider {
-  border: none;
-  border-top: 3px solid var(--border);
+.border-4 {
+  border-width: 4px;
 }
 
 @keyframes float {

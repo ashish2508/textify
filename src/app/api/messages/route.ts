@@ -34,7 +34,12 @@ export async function GET(req: NextRequest) {
     }
 
     const messages = await prisma.message.findMany({
-      where: { conversationId },
+      where: {
+        conversationId,
+        deletions: {
+          none: { userId: session.user.id },
+        },
+      },
       include: {
         sender: {
           select: { id: true, name: true },
@@ -109,6 +114,73 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json(message, { status: 201 });
+  } catch {
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(req.url);
+    const messageId = searchParams.get("messageId");
+
+    if (!messageId) {
+      return NextResponse.json(
+        { error: "messageId is required" },
+        { status: 400 }
+      );
+    }
+
+    const message = await prisma.message.findUnique({
+      where: { id: messageId },
+      select: { id: true, senderId: true, conversationId: true },
+    });
+
+    if (!message) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+
+    if (message.senderId !== session.user.id) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    const participant = await prisma.conversationParticipant.findUnique({
+      where: {
+        conversationId_userId: {
+          conversationId: message.conversationId,
+          userId: session.user.id,
+        },
+      },
+      select: { conversationId: true },
+    });
+
+    if (!participant) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    await prisma.messageDeletion.upsert({
+      where: {
+        messageId_userId: {
+          messageId: message.id,
+          userId: session.user.id,
+        },
+      },
+      update: { deletedAt: new Date() },
+      create: {
+        messageId: message.id,
+        userId: session.user.id,
+      },
+    });
+
+    return NextResponse.json({ success: true }, { status: 200 });
   } catch {
     return NextResponse.json(
       { error: "Internal server error" },

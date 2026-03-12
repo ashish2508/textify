@@ -24,6 +24,11 @@ export async function GET() {
           },
         },
         messages: {
+          where: {
+            deletions: {
+              none: { userId: session.user.id },
+            },
+          },
           orderBy: { timestamp: "desc" },
           take: 1,
           select: {
@@ -32,11 +37,34 @@ export async function GET() {
             senderId: true,
           },
         },
+        pins: {
+          where: { userId: session.user.id },
+          select: { createdAt: true },
+        },
       },
-      orderBy: { createdAt: "desc" },
     });
 
-    return NextResponse.json(conversations);
+    const shaped = conversations.map((conv) => {
+      const pinnedAt = conv.pins[0]?.createdAt ?? null;
+      const lastMessageAt = conv.messages[0]?.timestamp ?? conv.createdAt;
+      return {
+        ...conv,
+        pinned: Boolean(pinnedAt),
+        pinnedAt,
+        lastMessageAt,
+      };
+    });
+
+    shaped.sort((a, b) => {
+      if (a.pinned && !b.pinned) return -1;
+      if (!a.pinned && b.pinned) return 1;
+      const aPin = a.pinnedAt ? new Date(a.pinnedAt).getTime() : 0;
+      const bPin = b.pinnedAt ? new Date(b.pinnedAt).getTime() : 0;
+      if (aPin !== bPin) return bPin - aPin;
+      return new Date(b.lastMessageAt).getTime() - new Date(a.lastMessageAt).getTime();
+    });
+
+    return NextResponse.json(shaped);
   } catch {
     return NextResponse.json(
       { error: "Internal server error" },

@@ -56,12 +56,12 @@ export default function RegisterPage() {
 
   return (
     <Card>
-      <h2 className="text-2xl font-black uppercase mb-6 border-b-3 border-border pb-3">
+      <h2 className="text-2xl font-black uppercase mb-6 pb-4 border-b-4 border-black">
         Register
       </h2>
 
       {error && (
-        <div className="bg-primary/10 neo-border p-3 mb-4 font-bold text-sm text-primary">
+        <div className="p-3 mb-4 font-black text-sm border-4 border-black bg-red text-white">
           {error}
         </div>
       )}
@@ -113,11 +113,11 @@ export default function RegisterPage() {
         </Button>
       </form>
 
-      <p className="mt-6 text-center font-medium">
+      <p className="mt-6 text-center font-bold">
         Already have an account?{" "}
         <Link
           href="/login"
-          className="font-black underline decoration-3 underline-offset-4 hover:bg-secondary/30 px-1 transition-colors"
+          className="font-black underline decoration-4 underline-offset-4 px-2 py-1 bg-teal hover:bg-lime transition-colors"
         >
           Login
         </Link>

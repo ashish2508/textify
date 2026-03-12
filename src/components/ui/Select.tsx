@@ -8,16 +8,18 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   ({ label, options, className = "", id, ...props }, ref) => {
     return (
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         {label && (
-          <label htmlFor={id} className="text-sm font-bold uppercase tracking-wide">
+          <label htmlFor={id} className="text-sm font-black uppercase tracking-wide">
             {label}
           </label>
         )}
         <select
           ref={ref}
           id={id}
-          className={`neo-input px-4 py-3 text-base appearance-none bg-neo-bg color-neo-fg ${className}`}
+          className={`px-4 py-3 text-base font-bold border-4 border-black bg-white text-black appearance-none cursor-pointer
+            hover:bg-yellow transition-colors ${className}`}
+          style={{ boxShadow: "4px 4px 0px #000" }}
           {...props}
         >
           {options.map((opt) => (

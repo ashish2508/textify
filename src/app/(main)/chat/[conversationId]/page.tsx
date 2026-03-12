@@ -165,6 +165,18 @@ export default function ChatPage() {
     }
   }
 
+  async function deleteMessage(messageId: string) {
+    try {
+      const res = await fetch(`/api/messages?messageId=${messageId}`,
+        { method: "DELETE" }
+      );
+      if (res.ok) {
+        setMessages((prev) => prev.filter((msg) => msg.id !== messageId));
+      }
+    } catch {
+    }
+  }
+
   const languageOptions = LANGUAGES.map((l) => ({
     value: l.code,
     label: l.name,
@@ -173,36 +185,40 @@ export default function ChatPage() {
   if (loading) {
     return (
       <div className="flex-1 flex items-center justify-center">
-        <p className="font-bold text-lg">Loading chat...</p>
+        <p className="font-black text-xl uppercase">Loading chat...</p>
       </div>
     );
   }
 
   return (
     <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full">
-      <div className="neo-border border-t-0 border-l-0 border-r-0 bg-white px-6 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+      <div className="border-b-4 border-black bg-white px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-4">
           <button
             onClick={() => router.push("/chat")}
-            className="font-black text-xl hover:bg-bg px-2 py-1 transition-colors"
+            className="font-black text-2xl hover:bg-yellow px-3 py-2 border-4 border-black transition-colors"
+            style={{ boxShadow: "3px 3px 0px #000" }}
           >
             ←
           </button>
           <div>
-            <h2 className="font-black text-lg">{otherUser?.name}</h2>
-            <p className="text-xs font-medium text-fg/60">{otherUser?.email}</p>
+            <h2 className="font-black text-xl uppercase text-black">{otherUser?.name}</h2>
+            <p className="text-xs font-bold text-black/60">{otherUser?.email}</p>
           </div>
         </div>
-        <span className="text-xs font-bold bg-secondary/20 px-2 py-1 neo-border">
+        <span
+          className="text-xs font-black uppercase bg-lime px-3 py-2 border-4 border-black"
+          style={{ boxShadow: "3px 3px 0px #000" }}
+        >
           {LANGUAGES.find((l) => l.code === otherUser?.preferredLanguage)?.name || "English"}
         </span>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
+      <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-cream">
         {messages.length === 0 && (
           <div className="text-center py-12">
             <p className="text-6xl mb-4">👋</p>
-            <p className="font-bold">Send a message to start chatting!</p>
+            <p className="font-black uppercase">Send a message to start chatting!</p>
           </div>
         )}
 
@@ -214,37 +230,32 @@ export default function ChatPage() {
               className={`flex ${isOwn ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`neo-border max-w-[70%] p-3 ${isOwn
-                  ? "bg-primary text-white"
-                  : "bg-white"
-                  }`}
-                style={{
-                  boxShadow: isOwn
-                    ? "3px 3px 0px rgba(0,0,0,0.3)"
-                    : "var(--shadow-sm)",
-                }}
+                className={`max-w-[70%] p-4 border-4 border-black ${isOwn ? "bg-purple" : "bg-white"}`}
+                style={{ boxShadow: "4px 4px 0px #000" }}
               >
-                {!isOwn && (
-                  <p className="text-xs font-black mb-1">{msg.sender?.name}</p>
-                )}
-                <p className="font-medium">
-                  {isOwn
-                    ? msg.originalText
-                    : msg.translatedText || msg.originalText}
+                <div className="flex items-center justify-between gap-3">
+                  {!isOwn && (
+                    <p className="text-xs font-black uppercase tracking-wide mb-1 text-black">{msg.sender?.name}</p>
+                  )}
+                  {isOwn && (
+                    <button
+                      className="text-[10px] font-black uppercase px-2 py-1 border-2 border-black bg-yellow"
+                      onClick={() => deleteMessage(msg.id)}
+                    >
+                      Delete
+                    </button>
+                  )}
+                </div>
+                <p className={`font-bold text-base ${isOwn ? "text-white" : "text-black"}`}>
+                  {isOwn ? msg.originalText : msg.translatedText || msg.originalText}
                 </p>
                 {!isOwn && msg.translatedText && msg.translatedText !== msg.originalText && (
-                  <p className="text-xs mt-1 opacity-60 italic">
+                  <p className="text-xs mt-2 text-black/50 font-bold border-t-2 border-black/20 pt-2">
                     Original: {msg.originalText}
                   </p>
                 )}
-                <p
-                  className={`text-xs mt-1 ${isOwn ? "text-white/70" : "text-fg/40"
-                    }`}
-                >
-                  {new Date(msg.timestamp).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
+                <p className={`text-xs font-black mt-2 ${isOwn ? "text-white/80" : "text-black/50"}`}>
+                  {new Date(msg.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                 </p>
               </div>
             </div>
@@ -253,9 +264,9 @@ export default function ChatPage() {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="neo-border border-b-0 border-l-0 border-r-0 bg-white p-4">
+      <div className="border-t-4 border-black bg-white p-4">
         <div className="flex gap-3 items-end">
-          <div className="w-36">
+          <div className="w-40">
             <Select
               id="msgLang"
               options={languageOptions}
@@ -266,7 +277,8 @@ export default function ChatPage() {
           </div>
           <div className="flex-1">
             <textarea
-              className="neo-input w-full px-4 py-3 resize-none text-base"
+              className="w-full px-4 py-3 resize-none text-base font-bold border-4 border-black bg-white text-black outline-none"
+              style={{ boxShadow: "4px 4px 0px #000" }}
               rows={2}
               placeholder="Type your message..."
               value={newMessage}

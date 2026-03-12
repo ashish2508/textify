@@ -1,26 +1,28 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        'neo-bg': 'var(--bg)',
-        'neo-fg': 'var(--fg)',
-        'neo-primary': 'var(--primary)',
-        'neo-secondary': 'var(--secondary)',
-        'neo-accent': 'var(--accent)',
-        'neo-mint': 'var(--mint)',
-        'neo-lavender': 'var(--lavender)',
-        'neo-border': 'var(--border)',
+        cream: "#FFFBF5",
+        black: "#000000",
+        white: "#FFFFFF",
+        red: "#FF6B6B",
+        lime: "#C7F464",
+        teal: "#4ECDC4",
+        yellow: "#FFE66D",
+        purple: "#A388EE",
+        pink: "#FF8ED4",
+        orange: "#FFA447",
       },
     },
   },
-  darkMode: 'media',
+  darkMode: "class",
   plugins: [],
 };
 

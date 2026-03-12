@@ -10,7 +10,7 @@ export default async function MainLayout({ children }: { children: ReactNode }) 
 
   return (
     <Providers>
-      <div className="min-h-screen bg-bg flex flex-col">
+      <div className="min-h-screen bg-cream flex flex-col">
         <MainNav user={session.user} />
         <main className="flex-1 flex">{children}</main>
       </div>
