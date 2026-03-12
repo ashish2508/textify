@@ -16,13 +16,40 @@ export async function sendOtpEmail(email: string, otp: string) {
     to: email,
     subject: "Your Textify Login OTP",
     html: `
-      <div style="font-family: monospace; padding: 20px; background: #fff; border: 3px solid #000; max-width: 400px;">
-        <h2 style="border-bottom: 3px solid #000; padding-bottom: 10px;">Textify OTP</h2>
-        <p>Your one-time password is:</p>
-        <div style="font-size: 32px; font-weight: bold; letter-spacing: 8px; background: #fef08a; border: 3px solid #000; padding: 15px; text-align: center; box-shadow: 4px 4px 0px #000;">
-          ${otp}
+      <div style="font-family: 'Courier New', monospace; padding: 0; background: #e8f4f0; max-width: 460px; margin: 0 auto;">
+        <div style="background: #e63946; border: 4px solid #000; padding: 18px 24px; box-shadow: 6px 6px 0px #000;">
+          <h1 style="margin: 0; font-size: 28px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #000;">
+            ⚡ Textify
+          </h1>
         </div>
-        <p style="margin-top: 15px; font-size: 14px;">This code expires in 5 minutes. You have 3 attempts.</p>
+
+        <div style="background: #ffffff; border: 4px solid #000; border-top: none; padding: 30px 24px;">
+          <p style="font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 20px 0; color: #000;">
+            Your one-time password
+          </p>
+
+          <div style="background: #3a86ff; border: 4px solid #000; padding: 20px; text-align: center; box-shadow: 6px 6px 0px #000; margin-bottom: 24px;">
+            <span style="font-size: 42px; font-weight: 900; letter-spacing: 12px; color: #fff; font-family: 'Courier New', monospace;">
+              ${otp}
+            </span>
+          </div>
+
+          <div style="background: #2dc653; border: 3px solid #000; padding: 12px 16px; box-shadow: 4px 4px 0px #000;">
+            <p style="margin: 0; font-size: 13px; font-weight: 700; color: #000; text-transform: uppercase; letter-spacing: 0.5px;">
+              ⏱ Expires in 5 minutes &nbsp;|&nbsp; 🔒 3 attempts max
+            </p>
+          </div>
+
+          <p style="margin: 20px 0 0 0; font-size: 12px; font-weight: 600; color: #000; opacity: 0.5;">
+            If you didn't request this code, ignore this email.
+          </p>
+        </div>
+
+        <div style="background: #000; padding: 12px 24px; border: 4px solid #000;">
+          <p style="margin: 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #e8f4f0;">
+            Textify — Real-time Multilingual Chat
+          </p>
+        </div>
       </div>
     `,
   });

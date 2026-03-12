@@ -8,7 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const variantStyles = {
   primary: "bg-primary text-white",
   secondary: "bg-secondary text-white",
-  accent: "bg-accent text-fg",
+  accent: "bg-accent text-white",
   outline: "bg-white text-fg",
 };
 

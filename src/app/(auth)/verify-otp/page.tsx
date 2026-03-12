@@ -115,7 +115,7 @@ function OtpForm() {
         Verify OTP
       </h2>
       <p className="text-sm font-medium mb-6 mt-3">
-        Enter the 6-digit code sent to your email. You have <span className="font-black bg-accent px-1">3 attempts</span>.
+        Enter the 6-digit code sent to your email. You have <span className="font-black bg-primary/20 px-1">3 attempts</span>.
       </p>
 
       {error && (

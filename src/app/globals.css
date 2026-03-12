@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #fef3cd;
+  --bg: #e8f4f0;
   --fg: #000000;
-  --primary: #ff5277;
-  --secondary: #00c9a7;
-  --accent: #ffd166;
-  --purple: #c084fc;
-  --blue: #60a5fa;
+  --primary: #e63946;
+  --secondary: #2dc653;
+  --accent: #3a86ff;
+  --mint: #b8f2e6;
+  --lavender: #c3b1e1;
   --border: #000000;
   --white: #ffffff;
   --shadow: 5px 5px 0px #000000;
@@ -22,8 +22,8 @@
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
-  --color-purple: var(--purple);
-  --color-blue: var(--blue);
+  --color-mint: var(--mint);
+  --color-lavender: var(--lavender);
   --color-border: var(--border);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -36,8 +36,8 @@ body {
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--fg);
+  background: var(--secondary);
+  color: #fff;
 }
 
 .neo-border {
@@ -162,10 +162,10 @@ body {
 }
 
 .scrollbar-neo::-webkit-scrollbar-thumb {
-  background: var(--accent);
+  background: var(--secondary);
   border: 2px solid var(--border);
 }
 
 .scrollbar-neo::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
+  background: var(--accent);
 }
