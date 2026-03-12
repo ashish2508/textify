@@ -1,6 +1,5 @@
 "use client";
 
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/Button";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
@@ -28,7 +27,6 @@ export function MainNav({ user }: MainNavProps) {
         <span className="font-bold text-sm bg-neo-mint px-2 py-1 neo-border">
           {user?.name || user?.email}
         </span>
-        <ThemeToggle />
         <Button
           variant="outline"
           size="sm"

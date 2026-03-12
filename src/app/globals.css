@@ -42,18 +42,6 @@
   }
 }
 
-html.dark {
-  --bg: #1a1a1a;
-  --fg: #ffffff;
-  --border: #ffffff;
-  --card-bg: #2a2a2a;
-  --input-bg: #3a3a3a;
-  --shadow: 5px 5px 0px #ffffff;
-  --shadow-sm: 3px 3px 0px #ffffff;
-  --shadow-lg: 8px 8px 0px #ffffff;
-  --shadow-xl: 12px 12px 0px #ffffff;
-}
-
 body {
   background: var(--bg);
   color: var(--fg);

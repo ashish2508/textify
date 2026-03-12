@@ -66,7 +66,8 @@ export async function POST(req: NextRequest) {
       userId: user.id,
       otpId: otpRecord.id,
     });
-  } catch {
+  } catch (err) {
+    console.error("[send-otp] error:", err);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

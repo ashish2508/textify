@@ -20,7 +20,7 @@ const config: Config = {
       },
     },
   },
-  darkMode: 'class',
+  darkMode: 'media',
   plugins: [],
 };
 
