@@ -17,7 +17,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         <select
           ref={ref}
           id={id}
-          className={`neo-input px-4 py-3 text-base appearance-none bg-white ${className}`}
+          className={`neo-input px-4 py-3 text-base appearance-none bg-neo-bg color-neo-fg ${className}`}
           {...props}
         >
           {options.map((opt) => (

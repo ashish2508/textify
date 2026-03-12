@@ -9,7 +9,7 @@ const variantStyles = {
   primary: "bg-primary text-white",
   secondary: "bg-secondary text-white",
   accent: "bg-accent text-white",
-  outline: "bg-white text-fg",
+  outline: "bg-neo-bg text-neo-fg",
 };
 
 const sizeStyles = {
