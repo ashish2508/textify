@@ -14,9 +14,6 @@
   --shadow-sm: 3px 3px 0px #000000;
   --shadow-lg: 8px 8px 0px #000000;
   --shadow-xl: 12px 12px 0px #000000;
-}
-
-@theme inline {
   --color-bg: var(--bg);
   --color-fg: var(--fg);
   --color-primary: var(--primary);
