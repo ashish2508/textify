@@ -13,7 +13,7 @@ interface MainNavProps {
 
 export function MainNav({ user }: MainNavProps) {
   return (
-    <nav className="neo-border border-t-0 border-l-0 border-r-0 bg-white px-6 py-3 flex items-center justify-between">
+    <nav className="neo-border border-t-0 border-l-0 border-r-0 bg-neo-bg px-6 py-3 flex items-center justify-between">
       <Link href="/chat" className="flex items-center gap-2">
         <span className="bg-primary text-white px-2 py-0.5 neo-border neo-shadow-sm font-black text-xl uppercase -rotate-1">
           Textify
@@ -24,7 +24,7 @@ export function MainNav({ user }: MainNavProps) {
         <Link href="/settings" className="font-bold text-sm hover:bg-accent/20 px-2 py-1 transition-colors">
           ⚙ Settings
         </Link>
-        <span className="font-bold text-sm bg-bg px-2 py-1 neo-border">
+        <span className="font-bold text-sm bg-neo-mint px-2 py-1 neo-border">
           {user?.name || user?.email}
         </span>
         <Button
